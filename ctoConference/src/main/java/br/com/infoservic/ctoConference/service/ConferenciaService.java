@@ -1,25 +1,70 @@
-//package br.com.infoservic.ctoConference.service;
-//
-//import br.com.infoservic.ctoConference.repository.ConferenciaRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import java.time.LocalDate;
-//import java.util.List;
-//
-//@Service
-//public class ConferenciaService {
-//
-//    @Autowired
-//    private ConferenciaRepository repository;
-//
-//
+package br.com.infoservic.ctoConference.service;
+
+import br.com.infoservic.ctoConference.dto.ConferenciaCadastroDto;
+import br.com.infoservic.ctoConference.dto.UsuarioExibicaoDto;
+import br.com.infoservic.ctoConference.model.Conferencia;
+import br.com.infoservic.ctoConference.model.Portas;
+import br.com.infoservic.ctoConference.model.Usuario;
+import br.com.infoservic.ctoConference.repository.ConferenciaRepository;
+import br.com.infoservic.ctoConference.repository.PortasRepository;
+import br.com.infoservic.ctoConference.repository.UsuarioRepository;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class ConferenciaService {
+
+    private final ConferenciaRepository conferenciaRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    public ConferenciaService(ConferenciaRepository conferenciaRepository, UsuarioRepository usuarioRepository) {
+        this.conferenciaRepository = conferenciaRepository;
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    public Conferencia gravar(ConferenciaCadastroDto conferenciaCadastroDto) {
+        // Busca os técnicos
+        Usuario tecInterno = usuarioRepository.findById(conferenciaCadastroDto.tecInterno_id())
+                .orElseThrow(() -> new RuntimeException("Usuário de Tec. Interno não encontrado"));
+
+        Usuario tecExterno = usuarioRepository.findById(conferenciaCadastroDto.tecExterno_id())
+                .orElseThrow(() -> new RuntimeException("Usuário de Tec. Externo não encontrado"));
+
+        // Cria a conferência
+        Conferencia conferencia = new Conferencia();
+        conferencia.setCaixa(conferenciaCadastroDto.caixa());
+        conferencia.setCidade(conferenciaCadastroDto.cidade());
+        conferencia.setDataConferencia(conferenciaCadastroDto.dataConferencia());
+        conferencia.setObservacao(conferenciaCadastroDto.observacao());
+        conferencia.setTecInternoId(tecInterno);
+        conferencia.setTecExternoId(tecExterno);
+
+        // Adiciona portas usando o helper da entidade
+        conferenciaCadastroDto.portas().forEach(p -> {
+            Portas portas = new Portas();
+            portas.setNrPorta(p.nrPorta());
+            portas.setCliente(p.cliente());
+            portas.setStatus(p.status());
+            portas.setPlotado(p.plotado());
+            portas.setObservacao(p.observacao());
+            conferencia.addPorta(portas); // associa a conferência automaticamente
+        });
+
+        // Salva a conferência e todas as portas automaticamente
+        return conferenciaRepository.save(conferencia);
+    }
+}
+
+
 //    public List<ConferenciaExibicaoDto> listarConferenciasPorPeriodo(LocalDate dataInicial, LocalDate dataFinal){
-//        return repository
+//        return conferenciaRepository
 //                .listarConferenciasPorPeriodo(dataInicial, dataFinal)
 //                .stream()
 //                .map(ConferenciaExibicaoDto::new)
 //                .toList();
 //
 //    }
-//}
+

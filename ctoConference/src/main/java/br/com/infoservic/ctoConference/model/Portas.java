@@ -24,6 +24,12 @@ public class Portas {
             allocationSize = 1
     )
     private Long portaId;
+
+    // vínculo com a conferência
+    @ManyToOne
+    @JoinColumn(name = "conferencia_id")
+    private Conferencia conferencia;
+
     private Integer nrPorta;
     private String cliente;
     private String status;
