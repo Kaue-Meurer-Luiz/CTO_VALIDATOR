@@ -1,6 +1,7 @@
 package br.com.infoservic.ctoConference.service;
 
 import br.com.infoservic.ctoConference.dto.ConferenciaCadastroDto;
+import br.com.infoservic.ctoConference.dto.ConferenciaExibicaoDto;
 import br.com.infoservic.ctoConference.dto.UsuarioExibicaoDto;
 import br.com.infoservic.ctoConference.model.Conferencia;
 import br.com.infoservic.ctoConference.model.Portas;
@@ -25,7 +26,7 @@ public class ConferenciaService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Conferencia gravar(ConferenciaCadastroDto conferenciaCadastroDto) {
+    public ConferenciaExibicaoDto gravar(ConferenciaCadastroDto conferenciaCadastroDto) {
         // Busca os técnicos
         Usuario tecInterno = usuarioRepository.findById(conferenciaCadastroDto.tecInterno_id())
                 .orElseThrow(() -> new RuntimeException("Usuário de Tec. Interno não encontrado"));
@@ -53,8 +54,11 @@ public class ConferenciaService {
             conferencia.addPorta(portas); // associa a conferência automaticamente
         });
 
-        // Salva a conferência e todas as portas automaticamente
-        return conferenciaRepository.save(conferencia);
+        // salva a conferência e automaticamente as portas
+        Conferencia conferenciaSalva = conferenciaRepository.save(conferencia);
+
+// retorna o DTO de exibição
+        return new ConferenciaExibicaoDto(conferenciaSalva);
     }
 }
 

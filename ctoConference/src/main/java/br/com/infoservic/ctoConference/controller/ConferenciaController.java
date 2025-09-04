@@ -1,6 +1,7 @@
 package br.com.infoservic.ctoConference.controller;
 
 import br.com.infoservic.ctoConference.dto.ConferenciaCadastroDto;
+import br.com.infoservic.ctoConference.dto.ConferenciaExibicaoDto;
 import br.com.infoservic.ctoConference.model.Conferencia;
 import br.com.infoservic.ctoConference.service.ConferenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ConferenciaController {
 
     @PostMapping("/conferencias")
     @ResponseStatus(HttpStatus.CREATED)
-    public Conferencia gravar(@RequestBody ConferenciaCadastroDto conferenciaCadastroDto){
+    public ConferenciaExibicaoDto gravar(@RequestBody ConferenciaCadastroDto conferenciaCadastroDto){
         return service.gravar(conferenciaCadastroDto);
     }
 

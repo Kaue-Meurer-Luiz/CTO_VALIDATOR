@@ -1,27 +1,34 @@
-//package br.com.infoservic.ctoConference.dto;
-//
-//import br.com.infoservic.ctoConference.model.Conferencia;
-//import br.com.infoservic.ctoConference.model.Portas;
-//import jakarta.validation.constraints.NotBlank;
-//
-//import java.time.LocalDate;
-//import java.util.List;
+package br.com.infoservic.ctoConference.dto;
 
-//public record ConferenciaExibicaoDto(
-//        String caixa,
-//        String cidade,
-//        LocalDate dataConferencia,
-//        String observacao,
-//        Long tecInterno_id,
-//        List<Portas> portas
-//) {
-//    public ConferenciaExibicaoDto (Conferencia conferencia){
-//        this(
-//                conferencia.getCaixa(),
-//                conferencia.getCidade(),
-//                conferencia.getDataConferencia(),
-//                conferencia.getObservação(),
-//                conferencia.getUsuario(),
-//        );
-//    }
-//}
+import br.com.infoservic.ctoConference.model.Conferencia;
+import br.com.infoservic.ctoConference.model.Portas;
+import br.com.infoservic.ctoConference.model.Usuario;
+
+import java.time.LocalDate;
+import java.util.List;
+
+public record ConferenciaExibicaoDto(
+        Long idConferencia,
+        String caixa,
+        String cidade,
+        LocalDate dataConferencia,
+        String observacao,
+        UsuarioExibicaoDto tecInterno,
+        UsuarioExibicaoDto tecExterno,
+        List<PortasExibicaoDto> portas
+) {
+    public ConferenciaExibicaoDto(Conferencia conferencia) {
+        this(
+                conferencia.getIdConferencia(),
+                conferencia.getCaixa(),
+                conferencia.getCidade(),
+                conferencia.getDataConferencia(),
+                conferencia.getObservacao(),
+                new UsuarioExibicaoDto(conferencia.getTecInternoId()),
+                new UsuarioExibicaoDto(conferencia.getTecExternoId()),
+                conferencia.getPortas().stream()
+                        .map(PortasExibicaoDto::new)
+                        .toList()
+        );
+    }
+}
