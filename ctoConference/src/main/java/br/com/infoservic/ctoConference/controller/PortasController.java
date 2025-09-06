@@ -2,6 +2,7 @@ package br.com.infoservic.ctoConference.controller;
 
 import br.com.infoservic.ctoConference.dto.PortasCadastroDto;
 import br.com.infoservic.ctoConference.dto.PortasExibicaoDto;
+import br.com.infoservic.ctoConference.dto.PortasExibicaoSimplesDto;
 import br.com.infoservic.ctoConference.model.Portas;
 import br.com.infoservic.ctoConference.service.PortasService;
 import jakarta.validation.Valid;
@@ -40,7 +41,7 @@ public class PortasController {
 
 
     @GetMapping("/portas/cliente/{cliente}")
-    public List<PortasExibicaoDto> buscarClientePorNome(@PathVariable String cliente){return service.buscarPeloCliente(cliente);}
+    public List<PortasExibicaoSimplesDto> buscarClientePorNome(@PathVariable String cliente){return service.buscarPeloCliente(cliente);}
 
     @GetMapping("portas/id/{id}")
     @ResponseStatus(HttpStatus.OK)

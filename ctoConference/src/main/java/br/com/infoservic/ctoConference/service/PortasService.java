@@ -2,6 +2,7 @@ package br.com.infoservic.ctoConference.service;
 
 import br.com.infoservic.ctoConference.dto.PortasCadastroDto;
 import br.com.infoservic.ctoConference.dto.PortasExibicaoDto;
+import br.com.infoservic.ctoConference.dto.PortasExibicaoSimplesDto;
 import br.com.infoservic.ctoConference.exception.NaoEncontradoException;
 import br.com.infoservic.ctoConference.model.Portas;
 import br.com.infoservic.ctoConference.repository.PortasRepository;
@@ -62,13 +63,16 @@ public class PortasService {
     }
 
 
-    public List<PortasExibicaoDto> buscarPeloCliente(String cliente) {
+    public List<PortasExibicaoSimplesDto> buscarPeloCliente(String cliente) {
         List<Portas> portasList = portasRepository.findAllByCliente(cliente);
         if (portasList.isEmpty()) {
             throw new NaoEncontradoException("Cliente não encontrado!");
         }
         return portasList.stream()
-                .map(PortasExibicaoDto::new)
+                .map(PortasExibicaoSimplesDto::new)
                 .collect(Collectors.toList());
     }
+
+
+
 }
