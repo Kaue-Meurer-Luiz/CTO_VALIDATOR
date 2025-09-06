@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PortasService {
@@ -60,13 +61,14 @@ public class PortasService {
         }
     }
 
-    public PortasExibicaoDto buscarPeloCliente(String cliente){
-        Optional<Portas> portasOptional = portasRepository.findByCliente(cliente);
-        if (portasOptional.isPresent()){
-            return new PortasExibicaoDto(portasOptional.get());
-        } else {
+
+    public List<PortasExibicaoDto> buscarPeloCliente(String cliente) {
+        List<Portas> portasList = portasRepository.findAllByCliente(cliente);
+        if (portasList.isEmpty()) {
             throw new NaoEncontradoException("Cliente não encontrado!");
         }
+        return portasList.stream()
+                .map(PortasExibicaoDto::new)
+                .collect(Collectors.toList());
     }
-
 }

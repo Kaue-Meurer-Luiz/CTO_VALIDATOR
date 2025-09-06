@@ -40,7 +40,7 @@ public class PortasController {
 
 
     @GetMapping("/portas/cliente/{cliente}")
-    public PortasExibicaoDto buscarClientePorNome(@PathVariable String cliente){return service.buscarPeloCliente(cliente);}
+    public List<PortasExibicaoDto> buscarClientePorNome(@PathVariable String cliente){return service.buscarPeloCliente(cliente);}
 
     @GetMapping("portas/id/{id}")
     @ResponseStatus(HttpStatus.OK)
