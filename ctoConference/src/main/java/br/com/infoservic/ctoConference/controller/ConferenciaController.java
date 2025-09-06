@@ -29,11 +29,11 @@ public class ConferenciaController {
     }
 
 
-//    @GetMapping(value = "/conferencia", params = {"dataInicio", "dataFinal"})
-//    public List<ConferenciaExibicaoDto> listarConferenciasPorPeriodo(
-//            @RequestParam LocalDate dataInicio,
-//            @RequestParam LocalDate dataFinal
-//    ) {
-//        return service.listarConferenciasPorPeriodo(dataInicio, dataFinal);
-//    }
+    @GetMapping(value = "/conferencia", params = {"dataInicio", "dataFinal"})
+    public List<ConferenciaExibicaoDto> listarConferenciasPorPeriodo(
+            @RequestParam LocalDate dataInicio,
+            @RequestParam LocalDate dataFinal
+    ) {
+        return service.listarConferenciasPorPeriodo(dataInicio, dataFinal);
+    }
 }
