@@ -64,6 +64,8 @@ public class ConferenciaService {
     }
 
 
+
+// Listar conferencias por Periodo
     public List<ConferenciaExibicaoDto> listarConferenciasPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
         return conferenciaRepository
                 .listarConferenciasPorPeriodo(dataInicial, dataFinal)
@@ -71,5 +73,15 @@ public class ConferenciaService {
                 .map(ConferenciaExibicaoDto::new)
                 .toList();
 
+    }
+
+
+    // Listar todas as conferencias
+    public List<ConferenciaExibicaoDto> listarTodasAsConferencias(){
+        return conferenciaRepository
+                .findAll()
+                .stream()
+                .map(ConferenciaExibicaoDto::new)
+                .toList();
     }
 }

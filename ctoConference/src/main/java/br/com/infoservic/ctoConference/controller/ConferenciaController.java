@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ConferenciaController {
 
+    @Autowired
     private ConferenciaService service;
 
 
@@ -29,11 +30,18 @@ public class ConferenciaController {
     }
 
 
-    @GetMapping(value = "/conferencia", params = {"dataInicio", "dataFinal"})
+    @GetMapping(value = "/conferencias", params = {"dataInicio", "dataFinal"})
     public List<ConferenciaExibicaoDto> listarConferenciasPorPeriodo(
             @RequestParam LocalDate dataInicio,
             @RequestParam LocalDate dataFinal
     ) {
         return service.listarConferenciasPorPeriodo(dataInicio, dataFinal);
+    }
+
+
+    @GetMapping("/conferencias/listar")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ConferenciaExibicaoDto> listarTodasAsConferencias(){
+        return service.listarTodasAsConferencias();
     }
 }
