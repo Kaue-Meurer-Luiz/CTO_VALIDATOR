@@ -15,4 +15,6 @@ public interface ConferenciaRepository extends JpaRepository<Conferencia, Long> 
             @Param("dataInicial") LocalDate dataInicial,
             @Param("dataFinal") LocalDate dataFinal
     );
+
+    List<Conferencia> findTop5ByOrderByDataConferenciaDesc();
 }

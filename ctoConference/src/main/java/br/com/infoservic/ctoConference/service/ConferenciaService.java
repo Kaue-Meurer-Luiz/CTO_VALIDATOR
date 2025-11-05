@@ -84,4 +84,12 @@ public class ConferenciaService {
                 .map(ConferenciaExibicaoDto::new)
                 .toList();
     }
+
+    //Lista ultimas 5 conferencias
+    public List<ConferenciaExibicaoDto> listarUltimasCinco(){
+        return conferenciaRepository.findTop5ByOrderByDataConferenciaDesc()
+                .stream()
+                .map(ConferenciaExibicaoDto::new)
+                .toList();
+    }
 }

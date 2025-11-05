@@ -6,6 +6,7 @@ import br.com.infoservic.ctoConference.model.Conferencia;
 import br.com.infoservic.ctoConference.service.ConferenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -44,4 +45,13 @@ public class ConferenciaController {
     public List<ConferenciaExibicaoDto> listarTodasAsConferencias(){
         return service.listarTodasAsConferencias();
     }
+
+    @GetMapping("/conferencias/ultimas")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ConferenciaExibicaoDto> buscarUltimasCincoConferencias(){
+        return service.listarUltimasCinco();
+    }
+
+
+
 }
