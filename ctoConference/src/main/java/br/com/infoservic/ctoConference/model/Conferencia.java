@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class Conferencia {
 
     private String caixa;
     private String cidade;
-    private LocalDate dataConferencia;
+    private LocalDateTime dataConferencia;
     private String observacao;
 
     // quem fez a conferência interno

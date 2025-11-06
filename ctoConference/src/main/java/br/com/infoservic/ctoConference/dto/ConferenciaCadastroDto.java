@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public record ConferenciaCadastroDto(
@@ -16,7 +18,7 @@ public record ConferenciaCadastroDto(
         String cidade,
 
         @NotNull(message = "É obrigatorio definir qual a data que está realizando a conferencia!")
-        LocalDate dataConferencia,
+        LocalDateTime dataConferencia,
         String observacao,
 
         @NotNull(message = "É obrigatorio definir qual Tecnico interno está realizando a conferencia!")

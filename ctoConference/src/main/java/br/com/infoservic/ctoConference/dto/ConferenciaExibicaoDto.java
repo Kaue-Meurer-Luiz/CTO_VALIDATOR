@@ -5,13 +5,15 @@ import br.com.infoservic.ctoConference.model.Portas;
 import br.com.infoservic.ctoConference.model.Usuario;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public record ConferenciaExibicaoDto(
         Long idConferencia,
         String caixa,
         String cidade,
-        LocalDate dataConferencia,
+        LocalDateTime dataConferencia,
         String observacao,
         UsuarioExibicaoDto tecInterno,
         UsuarioExibicaoDto tecExterno,
