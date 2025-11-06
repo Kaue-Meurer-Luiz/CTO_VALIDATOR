@@ -79,7 +79,7 @@ public class ConferenciaService {
     // Listar todas as conferencias
     public List<ConferenciaExibicaoDto> listarTodasAsConferencias(){
         return conferenciaRepository
-                .findAll()
+                .findAllByOrderByDataConferenciaDesc()
                 .stream()
                 .map(ConferenciaExibicaoDto::new)
                 .toList();

@@ -17,4 +17,7 @@ public interface ConferenciaRepository extends JpaRepository<Conferencia, Long> 
     );
 
     List<Conferencia> findTop5ByOrderByDataConferenciaDesc();
+
+    List<Conferencia> findAllByOrderByDataConferenciaDesc();
+
 }
